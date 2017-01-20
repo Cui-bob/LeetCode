@@ -6,6 +6,45 @@ public class RegularExpression {
 		System.out.println(isMatch("",".*"));
 	}
 	
+	/**
+	 * @param s
+	 * @param p
+	 * @return
+	 */
+	public static boolean isMatch2(String s, String p)
+	{
+		// if meet a *, just ignore it and check if the following part has a chance to match
+		int sMatched = 0; // The index that has already proved to be matched
+		int pMatched = 0;
+		int sCurrent = 0; // The current checking index
+		int pCurrent = 0;
+		while(true)
+		{
+			switch(p.charAt(pCurrent))
+			{
+			case '.':
+				if(pCurrent+1<p.length() && p.charAt(pCurrent+1) == '*')
+				{
+					
+				}
+				else
+				{
+
+				}
+				break;
+			default:
+				if(pCurrent+1<p.length() && p.charAt(pCurrent+1)=='*')
+				{
+					
+				}
+				else
+				{
+					pCurrent++;
+				}
+			}
+		}
+	}
+	
 	public static boolean isMatch(String s, String p)
 	{
 		if(p.equals("") && s.equals(""))

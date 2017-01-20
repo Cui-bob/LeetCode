@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Substring {
-	public static boolean substring(String str, String substr)
+	public static List<Integer> substring(String str, String substr)
 	{
-		ArrayList<Integer> substrList = new ArrayList<Integer>();
+		List<Integer> substrList = new ArrayList<Integer>();
 		for(int i=0;i<str.length();i++)
 		{
 			if(str.charAt(i) == substr.charAt(0) && i+substr.length()-1<str.length())
@@ -22,11 +23,10 @@ public class Substring {
 				}
 			}
 		}
-		return substrList.size()>0;
+		return substrList;
 	}
 	
 	public static void main(String[] arg)
 	{
-		System.out.print(substring("abcab","aa"));
 	}
 }
