@@ -1,11 +1,114 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class SubstringConcatenationAllWords {
-	public static List<Integer> findSubstring(String s, String[] words) {
+	static int n=0;
+	
+	
+	// passed
+	public static List<Integer> findSubstring(final String s, final String[] words)
+	{
+		final int wLen = words[0].length();
+		final int sLen = s.length();
+		final int len = words.length;
+		final List<Integer> index = new ArrayList<Integer>();
+		final HashMap<String, Integer> wordsMap = new HashMap<String, Integer>(len);
+		for(int i=0;i<len;i++)
+		{
+			if(!wordsMap.containsKey(words[i]))
+			{
+				wordsMap.put(words[i], 1);
+			}
+			else
+			{
+				wordsMap.put(words[i], wordsMap.get(words[i]).intValue()+1);
+			}
+		}
+		HashMap<String, Integer> copy;
+		outter:
+		for(int i=0;i<sLen-len*wLen+1;i++)
+		{
+			copy =  new HashMap<String ,Integer>(wordsMap);
+			for(int j=0;j<words.length;j++)
+			{
+				final String substr = s.substring(i+j*wLen,i+(j+1)*wLen);
+				if(copy.containsKey(substr))
+				{
+					if(!copy.remove(substr, 1))
+					{
+						copy.put(substr,copy.get(substr).intValue()-1);
+					}
+				}
+				else
+				{
+					//copy.put(substr, -1);
+					continue outter;
+				}
+			}
+			if(copy.isEmpty())
+			{
+				index.add(i);
+			}
+		}
+		return index;
+	}
+	
+	public static List<Integer> findSubstring_slowNo2(String s, String[] words)
+	{
+		if(words[0].length()==0)
+		{		
+			List<Integer> index = new ArrayList<Integer>();
+			for(int i=0;i<s.length()+1;i++)
+				index.add(i);
+			return index; //exceptions to be test
+		}
+		boolean isSatisfy = true;
+		boolean[] identifier = new boolean[words.length]; 
+		for(int i=0;i<identifier.length;i++)
+			identifier[i] = false;
+		List<Integer> index = new ArrayList<Integer>();
+		outter:
+		for(int i=0;i<s.length()-words[0].length()*words.length+1;i++)
+		{
+			inner:
+			for(int j=0;j<words.length;j++)
+			{
+				boolean toContinue = true;
+				for(int k=0;k<words.length;k++)
+				{
+					if(s.substring(i+j*words[0].length(), i+(j+1)*words[0].length()).equals(words[k]))
+					{
+						if(identifier[k]!=true)
+						{
+							identifier[k]=true;
+							toContinue = false;
+							continue inner;
+						}
+					}
+				}
+				if(toContinue)
+					break;
+			}
+			for(int q=0;q<identifier.length;q++)
+			{
+				isSatisfy = (isSatisfy && identifier[q]);
+				identifier[q] = false;
+			}
+			if(isSatisfy == true)
+			{
+				index.add(i);
+			}
+			isSatisfy = true;
+		}
+		return index;
+	}
+	
+	public static List<Integer> findSubstring_slow(String s, String[] words) {
 		if(words[0].equals(""))
 		{
             List<Integer> list = new ArrayList<Integer>();
@@ -49,9 +152,9 @@ public class SubstringConcatenationAllWords {
 				if(i == j && i!=0)
 					continue;
 				swap(currentIndex, j, i);
-//				for(int k=0;k<currentIndex.length;k++)
-//					System.out.print(currentIndex[k]);
-//				System.out.println("  "+i+" "+j + "  "+start + " " + (++n));
+				for(int k=0;k<currentIndex.length;k++)
+					System.out.print(currentIndex[k]);
+				System.out.println("  "+i+" "+j + "  "+start + " " + (++n));
 				//check the substring here
 				String currentStr="";
 				for(int k=0;k<index.length;k++)
@@ -97,8 +200,8 @@ public class SubstringConcatenationAllWords {
 	
 	public static void main(String[] arg)
 	{
-		String orgStr = " ";
-		String[] str = {"",""};
+		String orgStr = "abcdefabcda";
+		String[] str = {"ab","cd"};
 		System.out.println(findSubstring(orgStr,str));
 	}
 }
