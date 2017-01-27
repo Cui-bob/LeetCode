@@ -9,9 +9,71 @@ import java.util.Set;
 public class SubstringConcatenationAllWords {
 	static int n=0;
 	
+	// to improve
+		public static List<Integer> findSubstring(final String s, final String[] words)
+		{
+			final int wLen = words[0].length();
+			final int sLen = s.length();
+			final int len = words.length;
+			final List<Integer> list = new ArrayList<Integer>();
+			String[] wordsCounts = new String[len];
+			int[] counts = new int[len];
+			int count = 0;
+			outter1:
+			for(int i=0;i<len;i++)
+			{
+				for(int j=0;j<=count;j++)
+				{
+					if(wordsCounts[j]!=null && wordsCounts[j].equals(words[i]))
+					{
+						counts[j]++;
+						continue outter1;
+					}
+				}
+				wordsCounts[count++] = words[i];
+			}
+			String[] tmpWords;
+			int[] tmpInt;
+			outter2:
+			for(int i=0;i<sLen-len*wLen+1;i++)
+			{
+				tmpWords = wordsCounts.clone();
+				tmpInt = counts.clone();
+				inner1:
+				for(int j=0;j<words.length;j++)
+				{
+					final String substr = s.substring(i+j*wLen,i+(j+1)*wLen);
+					for(int k=0;k<count;k++)
+					{
+						if(tmpWords[k].equals(substr))
+						{
+							if(tmpInt[k]<0)
+							{
+								continue outter2;
+							}
+							else
+							{
+								tmpInt[k]--;
+								continue inner1;
+							}
+						}
+					}
+				}
+				for(int p=0;p<count;p++)
+				{
+					if(tmpInt[p]>=0)
+					{
+						continue outter2;
+					}
+				}
+				list.add(i);
+				
+			}
+			return list;
+		}
 	
 	// passed
-	public static List<Integer> findSubstring(final String s, final String[] words)
+	public static List<Integer> findSubstring_slowNo3(final String s, final String[] words)
 	{
 		final int wLen = words[0].length();
 		final int sLen = s.length();
@@ -200,8 +262,8 @@ public class SubstringConcatenationAllWords {
 	
 	public static void main(String[] arg)
 	{
-		String orgStr = "abcdefabcda";
-		String[] str = {"ab","cd"};
+		String orgStr = "wordgoodgoodgoodbestword";
+		String[] str = {"word","good","best","good"};
 		System.out.println(findSubstring(orgStr,str));
 	}
 }
