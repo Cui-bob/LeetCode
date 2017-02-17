@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class SubstringConcatenationAllWords {
 	static int n=0;
-	
+	// the array solution is TLE
 	// to improve
 		public static List<Integer> findSubstring(final String s, final String[] words)
 		{
