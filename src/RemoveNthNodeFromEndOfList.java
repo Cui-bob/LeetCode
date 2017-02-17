@@ -18,7 +18,7 @@ public class RemoveNthNodeFromEndOfList {
 			{
 				if(n>i || i == n-1)
 				{
-					return head.next;
+					return head.next; 
 				}
 				return null;
 			}
