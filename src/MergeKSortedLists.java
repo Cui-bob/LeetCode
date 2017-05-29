@@ -143,9 +143,6 @@ public class MergeKSortedLists {
 	}
 	
 	
-	public ListNode merge_withHeap(ListNode[] lists){
-		
-	}
 
 
 
