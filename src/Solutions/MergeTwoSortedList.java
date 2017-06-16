@@ -1,5 +1,7 @@
 package Solutions;
 
+import Util.ListNode;
+
 public class MergeTwoSortedList {
 
 	public ListNode merge_old(ListNode l1, ListNode l2){
@@ -74,8 +76,3 @@ public class MergeTwoSortedList {
 	
 }
 
-class ListNode{
-	int val;
-	ListNode next;
-	ListNode(int x){this.val=x;}
-}

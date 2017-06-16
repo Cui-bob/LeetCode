@@ -1,5 +1,7 @@
 package Solutions;
 
+import Util.ListNode;
+
 public class RemoveNthNodeFromEndOfList {
 	
 	public ListNode removeNthFromEnd(ListNode head, int n) 

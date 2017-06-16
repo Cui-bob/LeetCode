@@ -1,5 +1,7 @@
 package Solutions;
 
+import Util.ListNode;
+
 public class SwapNodesInPairs {
 	public ListNode swapPairs(ListNode head) {
         if(head == null || head.next == null){

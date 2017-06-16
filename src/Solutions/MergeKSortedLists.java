@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import Util.ListNode;
+
 public class MergeKSortedLists {
 	
 	
